@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}Blood Core{% endblock %}
+{% block page %}Medical History{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<style>
+
+.w3-container{
+  margin-top: 5px;
+  padding: 10px;
+  text-align: center;
+}
+</style>
+<div class="w3-container w3-mobile">
+  <h3>Medical History Since the Start of 2021</h3>
+</div>
+
+<div class="w3-responsive">
+<table class="w3-table-all w3-card-4 w3-centered"">
+  <thead>
+    <th>Id</th>
+    <th>Date</th>
+    <th>Height</th>
+    <th>Weight</th>
+    <th>BMI</th>
+    <th>BS Test Type</th>
+    <th>BSugar Level</th>
+    <th>Diabetic</th>
+    <th>BP Systolic</th>
+    <th>BP Diastolic</th>
+    <th>BP Pulse</th>
+    <th>BPressue Level</th>
+  </thead>
+  <tbody>
+    {% for medical in medicals %}
+    <tr>
+      <td>{{medical.medid}}</td>
+      <td>{{medical.checkup.strftime("%d/%m/%Y")}}</td>
+      <td>{{medical.height}}</td>
+      <td>{{medical.weight}}</td>
+      <td>{{medical.bmi}}</td>
+      <td>{{medical.bst_type}}</td>
+      <td>{{medical.bs_test}}</td>
+      <td>{{medical.blood_sugar}}</td>
+      <td>{{medical.bp_systolic}}</td>
+      <td>{{medical.bp_diastolic}}</td>
+      <td>{{medical.bp_pulse}}</td>
+      <td>{{medical.blood_pressure}}</td>
+    </tr>
+    {% endfor %}
+  <tbody>
+</table>
+</div>
+{% endblock %}
