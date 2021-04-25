@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}Blood Core{% endblock %}
+{% block page %}Login{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<style>
+
+label{
+  font-size: large;
+  padding-top: 2px;
+  color: black;
+}
+
+.w3-card-4{
+  position: relative;
+  margin: auto;
+  padding: 20px;
+  height: 100%;
+
+}
+
+.w3-container{
+  padding: 10px;
+}
+
+</style>
+
+<div class="w3-container">
+  <div class="w3-card-4">
+    
+    <div class="w3-container w3-center">
+      <i class="material-icons" style="font-size:200px">person</i>
+    </div>
+
+    <form class="w3-container" method="POST" action="/login">
+        {{ form.csrf_token }}
+
+        <div class="w3-container">
+          {{ form.username.label }} 
+          {{ form.username(size=20, class="validate") }}
+        </div>
+
+        <div class="w3-container">
+          {{ form.password.label }}
+          {{ form.password(size=20, class="validate") }}
+        </div>
+
+        <div class="w3-container w3-center">
+          {{form.submit}}
+        </div>
+
+        <div class="w3-container w3-center">
+          <a class= "btn w3-indigo waves-effect waves-red white-text" href="/signup">Sign Up</a>
+        </div>
+ 
+    </form>
+  </div>
+</div>
+{% endblock %}

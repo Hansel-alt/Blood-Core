@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!--Import Google Icon Font-->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Blood Core</title>
+</head>
+  
+<style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+  .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+  .fa-heart,.fa-anchor,.fa-coffee {font-size:200px}
+  .mySlides {display:none;}
+  
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: black;
+  }
+  
+  body {
+    background: linear-gradient( #4054b4 25%, #d9ddf0 75%);
+  }
+
+/* Scroll Bar */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #4054b4;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f44336;
+}
+
+</style>
+  
+<body>
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-indigo w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-indigo" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    
+    <a href="/" class="w3-bar-item w3-button w3-padding-large w3-hover-white"><i class="material-icons left">home</i>Blood Core</a>
+    <a href="/checkup" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i class="material-icons left">gpp_good</i>Check Up</a>
+    <a href="/medical" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i class="material-icons left">medication</i>Medical History</a>
+    <a href="/login" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="float: right"><i class="material-icons left">login</i> Login</a>
+    <a href="/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="float: right"><i class="material-icons left">logout</i>Logout</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="/checkup" class="w3-bar-item w3-button w3-padding-large">Check Up</a>
+    <a href="/medical" class="w3-bar-item w3-button w3-padding-large">Medical History</a>
+    <a href="/login" class="w3-bar-item w3-button w3-padding-large">Login</a>
+    <a href="/logout" class="w3-bar-item w3-button w3-padding-large">Logout</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-indigo w3-center" style="padding:80px 10px">
+  <h4 class="w3-margin w3-jumbo">Blood Core</h4>
+</header>
+
+<body >
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h2>Take control of your life </h2>
+		  <h5> Welcome to Good Hearts, Blood Core</h5>
+      
+      <div class="w3-content w3-section" style ="max-width:500px height: auto">
+      <img class="mySlides" src="/img.dib" style="width:50%">
+      <img class="mySlides" src="/img_1.jpg" style="width:100%">
+      <img class="mySlides" src="/img_2.jpg" style="width:100%">
+      <img class="mySlides" src="/img_3.jpg" style="width:100%">
+      <img class="mySlides" src="/img_4.jpg" style="width:100%">
+      </div>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa fa-heart w3-padding-64 w3-text-red"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
+    </div>
+
+    <div class="w3-twothird">
+      <h2>Why use our tracker?</h2>
+      <h6 class="w3-padding-32">If a person with diabetes or high blood pressure, has a meter, test strips and is testing, it's important to know what the blood glucose level means.
+		  Recommended blood glucose levels have a degree of interpretation for every individual and you should discuss this with your healthcare team.</h6>
+
+      <h3>How to monitor blood glucose levels?</h3>
+      <p class="w3-text-grey">Blood sugar testing requires the use of a blood sugar meter.
+      The meter measures the amount of sugar in a small sample of blood, usually from your fingertip, that you place on a disposable test strip. Even if you use a CGM, you'll still need a blood sugar meter to calibrate your CGM device daily.
+      Your doctor or diabetes educator can recommend an appropriate device for you. He or she can also help you learn how to use your meter.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Third Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h3>How to monitor blood pessure levels?</h3>
+      <p class="w3-text-grey">To check the blood pressure without the aid of an automated machine, a person will need several medical items. These are: a stethoscope, a blood pressure cuff with a squeezable balloon, an aneroid monitor, which has a numbered dial to read measurements
+      To check the blood pressure manually, sit in a relaxed position with the arm at rest on a table. Secure the cuff on the bicep and squeeze the balloon to increase the pressure.
+      Watch the aneroid monitor and increase the pressure to about 30 mm Hg over the normal blood pressure, or to 180 mm Hg if this is not known. When the cuff is inflated, place the stethoscope just inside the elbow crease under the cuff.
+      Slowly deflate the balloon and listen through the stethoscope. When the first beats hit, note the number on the aneroid monitor. This is the systolic pressure.
+      Continue listening until the steady heartbeat sound stops and record the number from the aneroid monitor again. This is the diastolic pressure. These two numbers are the blood pressure reading.</p>
+
+      <h3>Want to keep track of your entries?</h3>
+      <h5 class="w3-padding-32">Ask your doctor what a reasonable blood sugar and blood pressure ranges is for you. Your doctor will set target blood sugar and blood pressure test results based on several factors, including: Type and severity of diabetes, Age, How long you've had diabetes, Pregnancy status, The presence of diabetes complications, Overall health and the presence of other medical conditions</h5>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
+    </div>
+  </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">For The Ones We Love</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-24 w3-center w3-opacity">  
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+ <p>Powered by <a>Good Hearts</a></p>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 5000);
+}
+
+</script>
+
+<script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

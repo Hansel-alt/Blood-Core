@@ -1,0 +1,220 @@
+{% extends "layout.html" %}
+{% block title %}Blood Core{% endblock %}
+{% block page %}Check Up{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<style>
+
+label{
+  font-size: large;
+  padding-top: 2px;
+  color: black;
+}
+
+.w3-row-padding{
+  padding: 15px;
+}
+
+.w3-container{
+  margin-top: 10px;
+}
+
+</style>
+
+<div class="w3-container">
+  <div class="w3-card-4">
+    <form id="myForm" class="w3-container" method="POST" action="/checkup">
+
+      <!-- General Check Up -->
+      <div class="w3-container">
+        <h4>General</h4>
+      </div>
+
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label>Height</label>
+          <input placeholder="Enter your Height (cm)" id="height" name="height" type="text">
+        </div>
+
+        <div class="w3-half">
+          <label>Weight</label>
+          <input placeholder="Enter your Weight (kg)" id="weight" name="weight" type="text">
+        </div>
+      </div>
+
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label for="bmi">Body Mass Index</label>
+          <input placeholder="BMI" id="bmi" name="bmi" type="text">
+        </div>
+      </div>
+
+      <!-- Blood Sugar Test -->
+      <div class="w3-container">
+        <h4>Blood Sugar Test</h4>
+      </div>
+
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label>Test Type</label>
+          <select id="bst_type" name= "bst_type" class="browser-default">
+          <option value="" disabled selected>Test Type</option>
+          <option value="Random">Random</option>
+          <option value="Fasting">Fasting</option>
+          <option value="Post-prandial">2-hour post-prandial</option>
+          </select>
+        </div>
+        
+        <div class="w3-half">
+          <label>Blood Sugar</label>
+          <input placeholder="Enter blood sugar (mg/dl)" id="bs_test" name="bs_test" type="text">
+        </div>
+      </div>
+
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label>Diabetic Level</label>    
+          <input placeholder="Blood Sugar" id="blood_sugar" name="blood_sugar" type="text">
+        </div>
+      </div>
+
+      <!-- Blood Pressure Test -->
+      <div class="w3-container">
+        <h4>Blood Pressure Test</h4>
+      </div>
+
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label>BP Systolic</label>
+          <input placeholder="Systolic (Top Number)" id="bp_systolic" name="bp_systolic" type="text">
+        </div>
+
+        <div class="w3-half">
+          <label>BP Diastolic</label>
+          <input placeholder="Diastolic (Bottom Number)" id="bp_diastolic" name="bp_diastolic" type="text">
+        </div>
+
+        <div class="w3-half">
+          <label>BP Pulse</label>
+          <input placeholder="Pulse" id="bp_pulse" name="bp_pulse" type="text">
+        </div>
+
+        <div class="w3-half">
+          <label>Blood Pressure Level</label>
+          <input placeholder="Blood Pressure" id="blood_pressure" name="blood_pressure" type="text">          
+        </div>
+      </div> 
+      
+      <!-- Buttons -->
+      <div class="w3-row-padding">
+        <div class="w3-half">
+          <label for="checkup">Checkup Date</label>
+          <input type="date" id="checkup" name="checkup" required>
+        </div>
+        <div class="w3-half center" style="padding: 10px">
+          <button class="btn w3-indigo waves-effect waves-red" type="submit" name="action" onclick="calculates()">Submit
+          <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, options);
+});
+
+function calculateBMI(){
+  let height = parseInt(document.querySelector("#height").value);
+  let weight = parseInt(document.querySelector("#weight").value);
+  let result = document.querySelector("#bmi");
+  
+  if (height === "" || isNaN(height))
+    result.value = "Provide a valid Height and Weight!";
+  else if (weight === "" || isNaN(weight))
+    result.value = "Provide a valid Weight and Height!";
+  else {
+    let bmi = (weight / ((height * height) / 10000)).toFixed(2);
+    
+    if (bmi < 18.6) 
+      result.value = `Under Weight : ${bmi}`;  
+    else if (bmi >= 18.6 && bmi < 24.9) 
+      result.value = `Normal : ${bmi}`;
+    else result.value = `Over Weight : ${bmi}`;
+  }
+}
+
+function checkDiabetic(){
+  let bst_type = document.querySelector("#bst_type");  
+  let bs_test = parseInt(document.querySelector("#bs_test").value);
+  let check = document.querySelector("#blood_sugar");
+  
+  if (bs_test === "" || isNaN(bs_test))
+    check.value = "Provide a valid Test!";
+  else{
+
+    if ((bst_type === "Random") && (bs_test < 200)){
+      check.value = `Normal`;
+    }else if((bst_type === "Random") && (bs_test >=  200)){
+      check.value = `Diabetes`;
+    }else{
+      check.value = `Pre-Diabetes`;
+    }
+    
+    if ((bst_type === "Fasting") && (bs_test < 100)){
+      check.value = `Normal`;
+    }else if ((bst_type === "Fasting") && (bs_test >= 126)){
+      check.value = `Diabetes`;
+    }else{
+      check.value = `Pre-Diabetes`;
+    }
+    
+    if ((bst_type === "Post-prandial") && (bs_test < 140)){
+      check.value = `Normal`;
+    }else if ((bst_type === "Post-prandial") && (bs_test >= 200)){
+      check.value = `Diabetes`;
+    }else{
+      check.value = `Pre-Diabetes`;
+    }
+  }
+}
+
+function checkBP(){
+  let bp_systolic = parseInt(document.querySelector("#bp_systolic").value);  
+  let bp_diastolic = parseInt(document.querySelector("#bp_diastolic").value);
+  
+  let result = document.querySelector("#blood_pressure");
+
+  if (bp_systolic === "" || isNaN(bp_systolic))
+    result.value = "Provide a valid Systolic/Diastolic!";
+  else if (bp_diastolic === "" || isNaN(bp_diastolic))
+    result.value = "Provide a valid Diastolic/Systolic!";
+  else {
+    
+    if (bp_systolic < 120 && bp_diastolic < 80)
+      result.value = `Normal`;
+    else if ((bp_systolic == 120 || bp_systolic < 129)  && bp_diastolic < 80)
+      result.value = `Elevated`;
+    else if ((bp_systolic == 130 || bp_systolic < 139)  || (bp_diastolic == 80 || bp_diastolic < 89))
+      result.value = `Stage 1`;
+    else if (bp_systolic >= 140  || bp_diastolic >= 90)
+      result.value = `Stage 2`;
+    else if (bp_systolic > 180  || bp_diastolic > 120)
+      result.value = `Hypertensive Crisis`;
+  }
+}
+
+function calculates(){
+  calculateBMI();
+  checkDiabetic();
+  checkBP();
+}
+
+</script>
+{% endblock %}
