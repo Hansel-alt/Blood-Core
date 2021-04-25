@@ -4,11 +4,19 @@ from flask import Flask, request, render_template, redirect, flash, url_for, jso
 from flask_jwt import JWT, jwt_required, current_identity
 from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+
 from datetime import timedelta 
 from datetime import datetime, date
 
 from models import db, User, Medical
 from forms import SignUp, LogIn
+
+''' Begin Flask Login Functions '''
+login_manager = LoginManager()
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+''' End Flask Login Functions '''
 
 ''' Begin boilerplate code '''
 
@@ -17,7 +25,9 @@ def create_app():
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
   app.config['SECRET_KEY'] = "MYSECRET"
-  app.config['JWT_EXPIRATION_DELTA'] = timedelta(days = 7) 
+  app.config['JWT_EXPIRATION_DELTA'] = timedelta(days = 7)
+  CORS(app)
+  login_manager.init_app(app)
   db.init_app(app)
   return app
 
