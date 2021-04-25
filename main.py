@@ -23,10 +23,6 @@ def create_app():
 
 app = create_app()
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-
 app.app_context().push()
 
 ''' End Boilerplate Code '''
@@ -44,10 +40,6 @@ def identity(payload):
 jwt = JWT(app, authenticate, identity)
 
 ''' End JWT Setup '''
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 @app.route('/')
 def home():
@@ -70,7 +62,7 @@ def signupAction():
     db.session.commit()
     flash('Account Created!')
     return redirect(url_for('login'))
-    flash('Error invalid input!')
+  flash('Error invalid input!')
   return redirect(url_for('signup')) 
 
 @app.route('/login', methods=['GET'])
@@ -87,7 +79,7 @@ def loginAction():
       if user and user.check_password(data['password']):
         login_user(user)
         flash('Logged in successfully.')
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
   flash('Invalid credentials')
   return redirect(url_for('login'))
 

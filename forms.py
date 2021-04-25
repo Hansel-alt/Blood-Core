@@ -17,6 +17,6 @@ class SignUp(FlaskForm):
     submit = SubmitField('Sign Up', render_kw={'class': 'btn w3-indigo waves-effect waves-red white-text'})
 
 class LogIn(FlaskForm):
-    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
+    username = StringField('Username', validators=[InputRequired(), Length(min=3, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=7, max=80)])
     submit = SubmitField('Login', render_kw={'class': 'btn w3-indigo waves-effect waves-red white-text'})
