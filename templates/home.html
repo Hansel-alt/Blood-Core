@@ -73,16 +73,6 @@
 </div>
 
 <script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-  var x = document.getElementById("navDemo");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else { 
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-
 var myIndex = 0;
 carousel();
 
@@ -97,10 +87,5 @@ function carousel() {
   x[myIndex-1].style.display = "block";  
   setTimeout(carousel, 5000);
 }
-
 </script>
-
-<script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 {% endblock %}
