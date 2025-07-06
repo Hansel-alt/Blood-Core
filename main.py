@@ -1,7 +1,7 @@
 import json
 from flask_cors import CORS
 from flask import Flask, request, render_template, redirect, flash, url_for, jsonify
-from flask_jwt import JWT, jwt_required, current_identity
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
@@ -13,6 +13,7 @@ from forms import SignUp, LogIn
 
 ''' Begin Flask Login Functions '''
 login_manager = LoginManager()
+login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -21,39 +22,42 @@ def load_user(user_id):
 ''' Begin boilerplate code '''
 
 def create_app():
-  app = Flask(__name__, static_url_path='')
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-  app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-  app.config['SECRET_KEY'] = "MYSECRET"
-  app.config['JWT_EXPIRATION_DELTA'] = timedelta(days = 7)
-  CORS(app)
-  login_manager.init_app(app)
-  db.init_app(app)
-  return app
+    app = Flask(__name__, static_url_path='')
+    app.config.from_mapping(
+      SQLALCHEMY_DATABASE_URI='sqlite:///test.db',
+      SQLALCHEMY_TRACK_MODIFICATIONS=False,
+      SECRET_KEY='MYSECRET',
+      JWT_SECRET_KEY='MYSECRET',
+      JWT_ACCESS_TOKEN_EXPIRES=timedelta(days=7),
+    )
+    CORS(app)
+    login_manager.init_app(app)
+    db.init_app(app)
+    return app
 
 app = create_app()
-
 app.app_context().push()
+
+jwt = JWTManager(app)
 
 ''' End Boilerplate Code '''
 
 ''' Set up JWT here '''
 
-def authenticate(uname, password):
-  user = User.query.filter_by(username=uname).first()
-  if user and user.check_password(password):
-    return user
+#def authenticate(uname, password):
+#  user = User.query.filter_by(username=uname).first()
+#  if user and user.check_password(password):
+#    return user
 
-def identity(payload):
-  return User.query.get(payload['identity'])
+#def identity(payload):
+#  return User.query.get(payload['identity'])
 
-jwt = JWT(app, authenticate, identity)
 
 ''' End JWT Setup '''
 
 @app.route('/')
 def home():
-  return app.send_static_file('home.html')
+  return render_template('home.html')
 
 @app.route('/signup', methods=['GET'])
 def signup():
@@ -65,14 +69,23 @@ def signupAction():
   form = SignUp()
   if form.validate_on_submit():
     data = request.form 
+    #newuser = User(firstname=data['firstname'], lastname=data['lastname'], username=data['username'], email=data['email'],dob=data['dob'], address=data['address'])
     newuser = User(
-      firstname=data['firstname'], lastname=data['lastname'], username=data['username'], email=data['email'],dob=data['dob'], address=data['address'])
+            firstname     = form.firstname.data,
+            lastname      = form.lastname.data,
+            username      = form.username.data,
+            email         = form.email.data,
+            dateofbirth   = form.dob.data,        # ← match your model
+            address       = form.address.data
+        )
     newuser.set_password(data['password'])
     db.session.add(newuser)
     db.session.commit()
     flash('Account Created!')
     return redirect(url_for('login'))
-  flash('Error invalid input!')
+  #print(form.errors)
+  #flash(f"Invalid input: {form.errors}")
+  flash('Invalid input')
   return redirect(url_for('signup')) 
 
 @app.route('/login', methods=['GET'])
@@ -94,13 +107,13 @@ def loginAction():
   return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET'])
-#@jwt_required()
 def logout():
   logout_user()
   flash('Logged Out!')
   return redirect(url_for('login')) 
 
 @app.route('/checkup', methods=['POST'])
+@login_required
 def check_up():
   cdate= request.form.get('checkup')
 
@@ -115,28 +128,38 @@ def check_up():
     bp_systolic= request.form.get('bp_systolic'), 
     bp_diastolic= request.form.get('bp_diastolic'), 
     bp_pulse= request.form.get('bp_pulse'), 
-    blood_pressure= request.form.get('blood_pressure')
+    blood_pressure= request.form.get('blood_pressure'),
+    user_id = current_user.id  # Link to the logged-in user
     )
   db.session.add(medical)
   db.session.commit()
   return redirect(url_for('medical'))
 
 @app.route('/checkup', methods=['GET'])
+@login_required
 def getcheck_up():
   return render_template('checkup.html')
 
 @app.route('/medical', methods=['GET', 'POST'])
+@login_required
 def medical():
-  start = date(year=2021,month=1,day=1)
-  today = date.today()
-  end = today.strftime("%d/%m/%Y")
- 
-  medicals = Medical.query.filter(Medical.checkup <= end).filter(Medical.checkup >= start)
+  # set your date bounds
+  start = date(2021, 1, 1)
+  today    = date.today()
+
+  # build and execute the query
+  medicals = Medical.query.filter_by(user_id=current_user.id)\
+        .filter(Medical.checkup >= start)\
+        .filter(Medical.checkup <= today)\
+        .all()
+
+  # render the template
   return render_template('medical.html', medicals=medicals)
 
 @app.route('/mymedical', methods=['GET'])
+@login_required
 def mymedical():
-  medicals = Medical.query.all()
+  medicals = Medical.query.filter_by(user_id=current_user.id).all()
   medicals = [medical.toDict() for medical in medicals]
   return json.dumps(medicals)
 
@@ -147,4 +170,4 @@ def list_users():
     return json.dumps(users)
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8080, debug=True)
+  app.run(host='0.0.0.0', port=8081, debug=True)

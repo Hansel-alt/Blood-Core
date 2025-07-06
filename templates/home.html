@@ -1,91 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!--Import Google Icon Font-->
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title>Blood Core</title>
-</head>
-  
-<style>
-  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-  .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-  .fa-heart,.fa-anchor,.fa-coffee {font-size:200px}
-  .mySlides {display:none;}
-  
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
+{% extends 'layout.html' %}
 
-  footer {
-    background-color: #777;
-    padding: 10px;
-    text-align: center;
-    color: black;
-  }
-  
-  body {
-    background: linear-gradient( #4054b4 25%, #d9ddf0 75%);
-  }
+{% block page %}
+  Blood Core
+{% endblock %}
 
-/* Scroll Bar */
-::-webkit-scrollbar {
-  width: 15px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #4054b4;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #f44336;
-}
-
-</style>
-  
-<body>
-<!-- Navbar -->
-<div class="w3-top">
-  <div class="w3-bar w3-indigo w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-indigo" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    
-    <a href="/" class="w3-bar-item w3-button w3-padding-large w3-hover-white"><i class="material-icons left">home</i>Blood Core</a>
-    <a href="/checkup" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i class="material-icons left">gpp_good</i>Check Up</a>
-    <a href="/medical" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i class="material-icons left">medication</i>Medical History</a>
-    <a href="/login" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="float: right"><i class="material-icons left">login</i> Login</a>
-    <a href="/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" style="float: right"><i class="material-icons left">logout</i>Logout</a>
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="/" class="w3-bar-item w3-button w3-padding-large">Home</a>
-    <a href="/checkup" class="w3-bar-item w3-button w3-padding-large">Check Up</a>
-    <a href="/medical" class="w3-bar-item w3-button w3-padding-large">Medical History</a>
-    <a href="/login" class="w3-bar-item w3-button w3-padding-large">Login</a>
-    <a href="/logout" class="w3-bar-item w3-button w3-padding-large">Logout</a>
-  </div>
-</div>
-
-<!-- Header -->
-<header class="w3-container w3-indigo w3-center" style="padding:80px 10px">
-  <h4 class="w3-margin w3-jumbo">Blood Core</h4>
-</header>
-
-<body >
+{% block content %}
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
@@ -153,19 +72,6 @@
     <h1 class="w3-margin w3-xlarge">For The Ones We Love</h1>
 </div>
 
-<!-- Footer -->
-<footer class="w3-container w3-padding-24 w3-center w3-opacity">  
-  <div class="w3-xlarge w3-padding-16">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
- </div>
- <p>Powered by <a>Good Hearts</a></p>
-</footer>
-
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
@@ -197,5 +103,4 @@ function carousel() {
 <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-</html>
+{% endblock %}

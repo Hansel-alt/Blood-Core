@@ -1,10 +1,18 @@
-from main import db, app 
-from models import db, User
+from main import db, app
+from models import User
 
-db.create_all(app=app)
+with app.app_context():
+    db.create_all()
 
-bob = User(username='bob', email="bob@mail.com")
-bob.set_password('bobpass')
-db.session.add(bob)
+    # Only add bob if he doesn't already exist
+    if not User.query.filter_by(email='bob@mail.com').first():
+        bob = User(username='bob', email='bob@mail.com')
+        bob.set_password('bobpass')
+        db.session.add(bob)
+        db.session.commit()
+        print("Added bob to the database.")
+    else:
+        print("User bob@mail.com already exists.")
+
 
 print('database initialized!')

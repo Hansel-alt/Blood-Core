@@ -14,13 +14,13 @@
 }
 </style>
 <div class="w3-container w3-mobile">
-  <h3>Medical History Since the Start of 2021</h3>
+  <h3>Medical History</h3>
 </div>
 
 <div class="w3-responsive">
 <table class="w3-table-all w3-card-4 w3-centered"">
   <thead>
-    <th>Id</th>
+    <!-- <th>Id</th> -->
     <th>Date</th>
     <th>Height</th>
     <th>Weight</th>
@@ -36,7 +36,7 @@
   <tbody>
     {% for medical in medicals %}
     <tr>
-      <td>{{medical.medid}}</td>
+      <!-- <td>{{medical.id}}</td> -->
       <td>{{medical.checkup.strftime("%d/%m/%Y")}}</td>
       <td>{{medical.height}}</td>
       <td>{{medical.weight}}</td>

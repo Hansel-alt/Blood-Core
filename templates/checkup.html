@@ -21,6 +21,12 @@ label{
   margin-top: 10px;
 }
 
+input[readonly] {
+  background-color: #eee;
+  color: #333;
+  cursor: not-allowed;
+}
+
 </style>
 
 <div class="w3-container">
@@ -47,7 +53,8 @@ label{
       <div class="w3-row-padding">
         <div class="w3-half">
           <label for="bmi">Body Mass Index</label>
-          <input placeholder="BMI" id="bmi" name="bmi" type="text">
+          <input placeholder="BMI" id="bmi" name="bmi" type="text" readonly>
+
         </div>
       </div>
 
@@ -76,7 +83,7 @@ label{
       <div class="w3-row-padding">
         <div class="w3-half">
           <label>Diabetic Level</label>    
-          <input placeholder="Blood Sugar" id="blood_sugar" name="blood_sugar" type="text">
+          <input placeholder="Blood Sugar" id="blood_sugar" name="blood_sugar" type="text" readonly>
         </div>
       </div>
 
@@ -103,7 +110,8 @@ label{
 
         <div class="w3-half">
           <label>Blood Pressure Level</label>
-          <input placeholder="Blood Pressure" id="blood_pressure" name="blood_pressure" type="text">          
+          <input placeholder="Blood Pressure" id="blood_pressure" name="blood_pressure" type="text" readonly>
+       
         </div>
       </div> 
       
@@ -126,8 +134,22 @@ label{
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Materialize Select
   var elems = document.querySelectorAll('select');
-  var instances = M.FormSelect.init(elems, options);
+  M.FormSelect.init(elems);
+
+  // Run BMI calc when height or weight field loses focus
+  document.querySelector("#height").addEventListener("blur", calculateBMI);
+  document.querySelector("#weight").addEventListener("blur", calculateBMI);
+
+  // Run Diabetic check when test input or test type loses focus/change
+  document.querySelector("#bs_test").addEventListener("blur", checkDiabetic);
+  document.querySelector("#bst_type").addEventListener("change", checkDiabetic);
+
+  // Run Blood Pressure check when any bp field loses focus
+  document.querySelector("#bp_systolic").addEventListener("blur", checkBP);
+  document.querySelector("#bp_diastolic").addEventListener("blur", checkBP);
+  document.querySelector("#bp_pulse").addEventListener("blur", checkBP);
 });
 
 function calculateBMI(){
@@ -135,9 +157,9 @@ function calculateBMI(){
   let weight = parseInt(document.querySelector("#weight").value);
   let result = document.querySelector("#bmi");
   
-  if (height === "" || isNaN(height))
+  if (isNaN(height))
     result.value = "Provide a valid Height and Weight!";
-  else if (weight === "" || isNaN(weight))
+  else if (isNaN(weight))
     result.value = "Provide a valid Weight and Height!";
   else {
     let bmi = (weight / ((height * height) / 10000)).toFixed(2);
@@ -145,13 +167,13 @@ function calculateBMI(){
     if (bmi < 18.6) 
       result.value = `Under Weight : ${bmi}`;  
     else if (bmi >= 18.6 && bmi < 24.9) 
-      result.value = `Normal : ${bmi}`;
+      result.value = `Healthy Weight : ${bmi}`;
     else result.value = `Over Weight : ${bmi}`;
   }
 }
 
 function checkDiabetic(){
-  let bst_type = document.querySelector("#bst_type");  
+  let bst_type = document.querySelector("#bst_type").value;
   let bs_test = parseInt(document.querySelector("#bs_test").value);
   let check = document.querySelector("#blood_sugar");
   
@@ -191,9 +213,9 @@ function checkBP(){
   
   let result = document.querySelector("#blood_pressure");
 
-  if (bp_systolic === "" || isNaN(bp_systolic))
+  if (isNaN(bp_systolic))
     result.value = "Provide a valid Systolic/Diastolic!";
-  else if (bp_diastolic === "" || isNaN(bp_diastolic))
+  else if (isNaN(bp_diastolic))
     result.value = "Provide a valid Diastolic/Systolic!";
   else {
     
