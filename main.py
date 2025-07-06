@@ -32,7 +32,7 @@ def create_app():
 
     # Configuration with environment variables
     app.config.from_mapping(
-        SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL', 'sqlite:///instance/test.db'),
+        SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL', 'sqlite:///test.db'),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         SECRET_KEY=os.getenv('SECRET_KEY', 'changeme'),
         JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY', 'changeme'),
@@ -176,4 +176,4 @@ def list_users():
     return json.dumps(users)
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8081, debug=True)
+  app.run(host='0.0.0.0', port=8080, debug=True)
