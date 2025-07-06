@@ -21,15 +21,24 @@ def load_user(user_id):
 
 ''' Begin boilerplate code '''
 
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 def create_app():
     app = Flask(__name__, static_url_path='')
+
+    # Configuration with environment variables
     app.config.from_mapping(
-      SQLALCHEMY_DATABASE_URI='sqlite:///test.db',
-      SQLALCHEMY_TRACK_MODIFICATIONS=False,
-      SECRET_KEY='MYSECRET',
-      JWT_SECRET_KEY='MYSECRET',
-      JWT_ACCESS_TOKEN_EXPIRES=timedelta(days=7),
+        SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL', 'sqlite:///instance/test.db'),
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        SECRET_KEY=os.getenv('SECRET_KEY', 'changeme'),
+        JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY', 'changeme'),
+        JWT_ACCESS_TOKEN_EXPIRES=timedelta(days=7),
     )
+
     CORS(app)
     login_manager.init_app(app)
     db.init_app(app)
