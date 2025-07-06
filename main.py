@@ -69,7 +69,6 @@ def signupAction():
   form = SignUp()
   if form.validate_on_submit():
     data = request.form 
-    #newuser = User(firstname=data['firstname'], lastname=data['lastname'], username=data['username'], email=data['email'],dob=data['dob'], address=data['address'])
     newuser = User(
             firstname     = form.firstname.data,
             lastname      = form.lastname.data,
@@ -83,8 +82,6 @@ def signupAction():
     db.session.commit()
     flash('Account Created!')
     return redirect(url_for('login'))
-  #print(form.errors)
-  #flash(f"Invalid input: {form.errors}")
   flash('Invalid input')
   return redirect(url_for('signup')) 
 
