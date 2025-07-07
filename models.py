@@ -83,5 +83,6 @@ class Medical(db.Model):
           'bp_pulse': self.bp_pulse,
           'bp_result': self.blood_pressure
           },
+          
     }
 

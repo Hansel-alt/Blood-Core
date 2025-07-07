@@ -51,18 +51,7 @@ jwt = JWTManager(app)
 
 ''' End Boilerplate Code '''
 
-''' Set up JWT here '''
-
-#def authenticate(uname, password):
-#  user = User.query.filter_by(username=uname).first()
-#  if user and user.check_password(password):
-#    return user
-
-#def identity(payload):
-#  return User.query.get(payload['identity'])
-
-
-''' End JWT Setup '''
+''' Routes '''
 
 @app.route('/')
 def home():
