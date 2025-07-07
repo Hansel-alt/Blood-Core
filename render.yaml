@@ -1,0 +1,19 @@
+# Exported from Render on 2025-07-07T18:59:54Z
+services:
+- type: web
+  name: Blood-Core
+  runtime: python
+  repo: https://github.com/Hansel-alt/Blood-Core
+  plan: free
+  envVars:
+  - key: DATABASE_URL
+    sync: false
+  - key: JWT_SECRET_KEY
+    sync: false
+  - key: SECRET_KEY
+    sync: false
+  region: oregon
+  buildCommand: pip install -r requirements.txt
+  startCommand: gunicorn main:app
+  autoDeployTrigger: commit
+version: "1"
