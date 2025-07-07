@@ -32,12 +32,13 @@ def create_app():
 
     # Configuration with environment variables
     app.config.from_mapping(
-        SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL', 'sqlite:///test.db'),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SECRET_KEY=os.getenv('SECRET_KEY', 'changeme'),
-        JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY', 'changeme'),
-        JWT_ACCESS_TOKEN_EXPIRES=timedelta(days=7),
+      SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL'),
+      SQLALCHEMY_TRACK_MODIFICATIONS=False,
+      SECRET_KEY=os.getenv('SECRET_KEY'),
+      JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY'),
+      JWT_ACCESS_TOKEN_EXPIRES=timedelta(days=7),
     )
+
 
     CORS(app)
     login_manager.init_app(app)
