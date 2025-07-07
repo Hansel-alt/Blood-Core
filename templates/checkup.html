@@ -176,34 +176,36 @@ function checkDiabetic(){
   let bst_type = document.querySelector("#bst_type").value;
   let bs_test = parseInt(document.querySelector("#bs_test").value);
   let check = document.querySelector("#blood_sugar");
-  
-  if (bs_test === "" || isNaN(bs_test))
-    check.value = "Provide a valid Test!";
-  else{
 
-    if ((bst_type === "Random") && (bs_test < 200)){
-      check.value = `Normal`;
-    }else if((bst_type === "Random") && (bs_test >=  200)){
-      check.value = `Diabetes`;
-    }else{
-      check.value = `Pre-Diabetes`;
+  if (bs_test === "" || isNaN(bs_test)) {
+    check.value = "Provide a valid Test!";
+    return;
+  }
+
+  if (bst_type === "Random") {
+    if (bs_test < 200) {
+      check.value = "Normal";
+    } else {
+      check.value = "Diabetes";
     }
-    
-    if ((bst_type === "Fasting") && (bs_test < 100)){
-      check.value = `Normal`;
-    }else if ((bst_type === "Fasting") && (bs_test >= 126)){
-      check.value = `Diabetes`;
-    }else{
-      check.value = `Pre-Diabetes`;
+  } else if (bst_type === "Fasting") {
+    if (bs_test < 100) {
+      check.value = "Normal";
+    } else if (bs_test >= 126) {
+      check.value = "Diabetes";
+    } else {
+      check.value = "Pre-Diabetes";
     }
-    
-    if ((bst_type === "Post-prandial") && (bs_test < 140)){
-      check.value = `Normal`;
-    }else if ((bst_type === "Post-prandial") && (bs_test >= 200)){
-      check.value = `Diabetes`;
-    }else{
-      check.value = `Pre-Diabetes`;
+  } else if (bst_type === "Post-prandial") {
+    if (bs_test < 140) {
+      check.value = "Normal";
+    } else if (bs_test >= 200) {
+      check.value = "Diabetes";
+    } else {
+      check.value = "Pre-Diabetes";
     }
+  } else {
+    check.value = "Select a Test Type!";
   }
 }
 
