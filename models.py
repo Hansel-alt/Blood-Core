@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import SignUp, LogIn
-from datetime import datetime
+from datetime import date, datetime
 db = SQLAlchemy()
 
 ## Create a User Model
@@ -16,7 +16,7 @@ class User(UserMixin, db.Model):
   firstname = db.Column(db.String(120))
   lastname = db.Column(db.String(120))
   address = db.Column(db.String(200))
-  dateofbirth = db.Column(db.DateTime)
+  dateofbirth = db.Column(db.Date)
   medicals = db.relationship('Medical', backref='user', lazy=True)
 
   def toDict(self):
@@ -60,7 +60,7 @@ class Medical(db.Model):
   bp_diastolic = db.Column(db.Integer)
   bp_pulse = db.Column(db.Integer)
   blood_pressure = db.Column(db.String(100))
-  checkup = db.Column(db.DateTime, default=datetime.utcnow)
+  checkup = db.Column(db.Date, default=date.today)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
   def toDict(self):

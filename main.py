@@ -141,7 +141,7 @@ def getcheck_up():
 def medical():
   # set your date bounds
   start = date(2021, 1, 1)
-  today    = date.today()
+  today = date.today()
 
   # build and execute the query
   medicals = Medical.query.filter_by(user_id=current_user.id)\
